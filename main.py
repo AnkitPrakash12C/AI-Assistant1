@@ -5,6 +5,10 @@ import webbrowser as wb
 import wikipedia
 import pywhatkit
 import requests
+from Demos.mmapfile_demo import page_size
+from newsapi import NewsApiClient
+from scripts.regsetup import description
+from wikipedia import languages
 
 engine  = pyttsx3.init()
 
@@ -52,6 +56,20 @@ def searchGoogle():
     search = takeCommandMic()
     speech("Searching on Google...")
     wb.open('https://www.google.com/search?q=' + search)
+
+def news():
+    newsapi = NewsApiClient(api_key='7dd122eb25aa46e6807e4908f5aa6af1')
+    speech("On which topic do you want to hear the news?")
+    topic = takeCommandMic()
+    data = newsapi.get_top_headlines(q= topic,language='en', page_size=5)
+    newsdata = data['articles']
+    for x,y in enumerate(newsdata):
+        print(f'{x}{y[description]}')
+        speech((f'{x}{y[description]}'))
+
+    speech("That's it for now")
+
+
 
 
 
@@ -155,6 +173,11 @@ if __name__ == "__main__":
             speech('Weather is {}'.format(desp))
             speech('Humidity is {}'.format(humidity))
             speech('Wind speed is {}'.format(wind))
+            continue
+
+        elif 'news' in query:
+            speech("Fetching news...")
+            news()
             continue
 
         if 'bye' in query:
