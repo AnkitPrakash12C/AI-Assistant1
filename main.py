@@ -12,6 +12,7 @@ from scripts.regsetup import description
 from wikipedia import languages
 import clipboard
 import os
+import psutil
 import time as t
 
 engine  = pyttsx3.init()
@@ -84,7 +85,17 @@ def screenshot():
     img = pyautogui.screenshot(name_img)
     img.show()
 
-
+def getBattery():
+    battery = psutil.sensors_battery()
+    percent = battery.percent
+    if percent >= 75:
+        speech("Battery is good"+ str(percent) + " percent")
+    elif percent >= 40 and percent < 75:
+        speech("Battery is moderate"+ str(percent) + " percent")
+    elif percent >= 15 and percent < 40:
+        speech("Battery is low"+ str(percent) + " percent")
+    else:
+        speech("Battery is critical"+ str(percent) + " percent")
 
 
 
@@ -205,6 +216,9 @@ if __name__ == "__main__":
 
         elif 'screenshot' in query:
             screenshot()
+
+        elif 'battery' in query:
+            getBattery()
 
         if 'bye' in query:
             speech("Goodbye")
