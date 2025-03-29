@@ -1,7 +1,7 @@
 import pyttsx3
 import datetime
 import speech_recognition as sr
-
+import wikipedia
 engine  = pyttsx3.init()
 
 def speech(audio):
@@ -43,8 +43,13 @@ def greetings():
 def wishme():
     speech("Welcome back, what can i help you with?")
 
+def searchGoogle():
+    query = input("Enter the text you want to search on Google: ")
+    speech("Searching on Google...")
 
-voice = int(input("Press 1 for male voice.\nPress 2 for female voice"))
+
+
+# voice = int(input("Press 1 for male voice.\nPress 2 for female voice"))
 # getvoices(voice)
 
 # while True:
@@ -87,7 +92,6 @@ def takeCommandMic():
 
 if __name__ == "__main__":
     wishme()
-    getvoices(2)
     while True:
         query = takeCommandMic().lower()
 
@@ -102,6 +106,13 @@ if __name__ == "__main__":
         if 'greeting' in query:
             greetings()
             continue
+
+        if 'wikipedia' in query:
+            speech("searching on Wikipedia...")
+            query = query.replace("wikipedia", "")
+            result = wikipedia.summary(query, sentences=2)
+            print(result)
+            speech(result)
 
         if 'bye' in query:
             speech("Goodbye")
