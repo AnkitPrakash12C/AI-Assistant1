@@ -229,7 +229,7 @@ if __name__ == "__main__":
         elif 'play songs' in query:
             songs_dir = 'C:\\Users\\Ankit Prakash\\Desktop\\Heart\\HeartM'
             songs = os.listdir(songs_dir)
-            os.startfile(os.path.join(songs_dir, songs[0]))
+            os.startfile(os.path.join(songs_dir, songs[1]))
             continue
 
         elif 'logout' in query:
