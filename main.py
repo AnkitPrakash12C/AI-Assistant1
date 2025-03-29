@@ -81,7 +81,7 @@ if __name__ == "__main__":
             date()
             continue
 
-        if 'greet' in query:
+        if 'greeting' in query:
             greetings()
             continue
 
