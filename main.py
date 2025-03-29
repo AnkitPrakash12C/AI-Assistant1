@@ -9,6 +9,7 @@ from Demos.mmapfile_demo import page_size
 from newsapi import NewsApiClient
 from scripts.regsetup import description
 from wikipedia import languages
+import clipboard
 
 engine  = pyttsx3.init()
 
@@ -68,6 +69,11 @@ def news():
         speech((f'{x}{y[description]}'))
 
     speech("That's it for now")
+
+def text2speech():
+    text = clipboard.paste()
+    print(text)
+    speech(text)
 
 
 
@@ -180,6 +186,12 @@ if __name__ == "__main__":
             news()
             continue
 
+        elif 'read' in query:
+            text2speech()
+            continue
+
         if 'bye' in query:
             speech("Goodbye")
             break
+
+
