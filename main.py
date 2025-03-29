@@ -4,6 +4,7 @@ import speech_recognition as sr
 import webbrowser as wb
 import wikipedia
 import pywhatkit
+import requests
 
 engine  = pyttsx3.init()
 
@@ -75,6 +76,8 @@ def searchGoogle():
 #         break
 #     speech(audio)
 
+#http://api.openweathermap.org/data/2.5/weather?q={City Name)&units=imperial&appid=(c770033c605911f05f2e0f60bfaaacb1)
+
 def takeCommandCMD():
     query = input("How can I help you?\n")
     return query
@@ -128,6 +131,31 @@ if __name__ == "__main__":
             topic = takeCommandMic()
             speech("Playing on youtube...")
             pywhatkit.playonyt(topic)
+
+        elif 'weather' in query:
+            city = 'jamshedpur'
+            url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid=c770033c605911f05f2e0f60bfaaacb1'
+            res = requests.get(url)
+            data = res.json()
+
+            weather = data['weather'][0]['main']
+            temp = data['main']['temp']
+            desp = data['weather'][0]['description']
+            wind = data['wind']['speed']
+            humidity = data['main']['humidity']
+
+            print(weather)
+            print(temp)
+            print(desp)
+            print(wind)
+            print(humidity)
+
+            speech(f'Weather in {city} is')
+            speech('Temperature : {} degree Celsius'.format(temp))
+            speech('Weather is {}'.format(desp))
+            speech('Humidity is {}'.format(humidity))
+            speech('Wind speed is {}'.format(wind))
+            continue
 
         if 'bye' in query:
             speech("Goodbye")
