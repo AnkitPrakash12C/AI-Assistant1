@@ -85,6 +85,12 @@ def screenshot():
     img = pyautogui.screenshot(name_img)
     img.show()
 
+# def Whatsappmsg(phone_no, message):
+#     wb.open(f"https://web.whatsapp.com/send?phone={phone_no}&text={message}")
+#     t.sleep(10)
+#     pyautogui.press('enter')
+
+
 def getBattery():
     battery = psutil.sensors_battery()
     percent = battery.percent
