@@ -3,7 +3,7 @@ import datetime
 import speech_recognition as sr
 import webbrowser as wb
 import wikipedia
-
+import pywhatkit
 
 engine  = pyttsx3.init()
 
@@ -119,9 +119,15 @@ if __name__ == "__main__":
             print(result)
             speech(result)
 
-        if 'google' in query:
+        elif 'google' in query:
             searchGoogle()
             continue
+
+        elif 'video' in query:
+            speech("Which youtube video do you want to play?")
+            topic = takeCommandMic()
+            speech("Playing on youtube...")
+            pywhatkit.playonyt(topic)
 
         if 'bye' in query:
             speech("Goodbye")
