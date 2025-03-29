@@ -1,7 +1,10 @@
 import pyttsx3
 import datetime
 import speech_recognition as sr
+import webbrowser as wb
 import wikipedia
+
+
 engine  = pyttsx3.init()
 
 def speech(audio):
@@ -44,8 +47,10 @@ def wishme():
     speech("Welcome back, what can i help you with?")
 
 def searchGoogle():
-    query = input("Enter the text you want to search on Google: ")
+    speech("What should I search on Google?")
+    search = takeCommandMic()
     speech("Searching on Google...")
+    wb.open('https://www.google.com/search?q=' + search)
 
 
 
@@ -113,6 +118,10 @@ if __name__ == "__main__":
             result = wikipedia.summary(query, sentences=2)
             print(result)
             speech(result)
+
+        if 'google' in query:
+            searchGoogle()
+            continue
 
         if 'bye' in query:
             speech("Goodbye")
