@@ -1,3 +1,4 @@
+import pyautogui
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -10,6 +11,8 @@ from newsapi import NewsApiClient
 from scripts.regsetup import description
 from wikipedia import languages
 import clipboard
+import os
+import time as t
 
 engine  = pyttsx3.init()
 
@@ -74,6 +77,12 @@ def text2speech():
     text = clipboard.paste()
     print(text)
     speech(text)
+
+def screenshot():
+    name_img = t.time()
+    name_img = f'D:\Sem6\AI-Assistant1\screenshots\{name_img}.png'
+    img = pyautogui.screenshot(name_img)
+    img.show()
 
 
 
@@ -189,6 +198,13 @@ if __name__ == "__main__":
         elif 'read' in query:
             text2speech()
             continue
+
+        elif 'open' in query:
+            path = 'E:\Mine\Ben 10\Ben 10 Alien Force\Ben 10 Alien Force S02E01 Dual Audio 720p HD WEB-DL - DeadToonsIndia.mkv'
+            os.startfile(path)
+
+        elif 'screenshot' in query:
+            screenshot()
 
         if 'bye' in query:
             speech("Goodbye")
