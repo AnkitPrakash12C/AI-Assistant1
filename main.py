@@ -1,5 +1,7 @@
 import pyttsx3
 import datetime
+import speech_recognition as sr
+
 engine  = pyttsx3.init()
 
 def speech(audio):
@@ -67,11 +69,27 @@ def takeCommandCMD():
     query = input("How can I help you?\n")
     return query
 
+def takeCommandMic():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        r.pause_threshold = 1
+        audio = r.listen(source)
+    try:
+        print("Recognizing...")
+        query = r.recognize_google(audio, language='en-IN')
+        print(query)
+    except Exception as e:
+        print(e)
+        speech("Say that again please")
+        return "None"
+    return query
+
 if __name__ == "__main__":
     wishme()
     getvoices(2)
     while True:
-        query = takeCommandCMD().lower()
+        query = takeCommandMic().lower()
 
         if 'time' in query:
             time()
