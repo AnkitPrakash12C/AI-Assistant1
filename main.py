@@ -220,6 +220,21 @@ if __name__ == "__main__":
         elif 'battery' in query:
             getBattery()
 
+        elif 'play songs' in query:
+            songs_dir = 'C:\\Users\\Ankit Prakash\\Desktop\\Heart\\HeartM'
+            songs = os.listdir(songs_dir)
+            os.startfile(os.path.join(songs_dir, songs[0]))
+            continue
+
+        elif 'logout' in query:
+            os.system("shutdown -l")
+
+        elif 'shutdown' in query:
+            os.system("shutdown /s /t 1")
+
+        elif 'restart' in query:
+            os.system("shutdown /r /t 1")
+
         if 'bye' in query:
             speech("Goodbye")
             break
